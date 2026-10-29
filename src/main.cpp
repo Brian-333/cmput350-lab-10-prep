@@ -42,6 +42,8 @@ int main() {
             }
         }
         // TODO: set shader uniforms and eventually draw into
+        shader.setUniform("iResolution", sf::Vector2f(window.getSize()));
+        shader.setUniform("iMouse", sf::Vector2f(sf::Mouse::getPosition(window)));
         // a RenderTexture first before postprocessing into the window target.
         window.clear(sf::Color::Black);
         window.draw(fullscreenTriangle, &shader);
