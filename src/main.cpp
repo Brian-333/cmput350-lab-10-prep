@@ -34,6 +34,7 @@ int main() {
     // load vertex and fragment shaders:
     sf::Shader shader(std::filesystem::path{"main.vert"}, std::filesystem::path{"main.frag"});
     // TODO: eventually add another Shader here which uses the blur fragment shader,
+    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
     // also create a sf::RenderTexture...
     while (window.isOpen()) {
         while (auto e = window.pollEvent()) {
@@ -44,6 +45,7 @@ int main() {
         // TODO: set shader uniforms and eventually draw into
         shader.setUniform("iResolution", sf::Vector2f(window.getSize()));
         shader.setUniform("iMouse", sf::Vector2f(sf::Mouse::getPosition(window)));
+        shader.setUniform("iTime", std::chrono::duration<float>(std::chrono::steady_clock::now() - start).count());
         // a RenderTexture first before postprocessing into the window target.
         window.clear(sf::Color::Black);
         window.draw(fullscreenTriangle, &shader);

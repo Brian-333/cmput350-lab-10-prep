@@ -2,6 +2,7 @@
 
 uniform vec2 iResolution;
 uniform vec2 iMouse;
+uniform float iTime;
 
 void main(void) {
     // Fragment shader should output into gl_FragColor an RGBA:
@@ -20,7 +21,7 @@ void main(void) {
     float edge = 3.0 / iResolution.x;
     float circle = smoothstep(radius - edge, radius + edge, dist);
 
-    vec3 bg = vec3(uv.xy, 0);
+    vec3 bg = vec3((sin(uv.x + 2.0 * iTime) + 1.0) / 2.0, uv.y, 0);
     vec3 col = mix(vec3(1.0), bg, circle);
     
     gl_FragColor = vec4(col, 1.0);
